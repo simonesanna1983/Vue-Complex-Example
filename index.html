@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>Vue example</title>
+  </head>
+  <body>
+    <div id="app">
+      <loading v-bind:show="showLoading"></loading>
+
+      <h1>Todos</h1>
+      <div class="form-check form-switch" v-on:click="manageTodosVisibility">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="flexSwitchCheckDefault"
+          :checked="isTodosVisible"
+        />
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Show/Hide Todos</label
+        >
+      </div>
+
+      <!-- <button v-on:click="manageTodosVisibility">Show/Hide Todos</button> -->
+
+      <transition name="todos-transition">
+        <ul v-if="isTodosVisible">
+          <li v-for="todo in todos" :key="todo.id">
+            {{ todo.title }}
+            <span style="cursor: pointer" v-on:click="deleteTodo(todo.id)"
+              >❌</span
+            >
+          </li>
+        </ul>
+      </transition>
+
+      <div v-if="todos.length === 0">no todos to show</div>
+
+      <hr />
+
+      <button v-on:click="fetchUsers">Load Users</button>
+
+      <h1>Users</h1>
+
+      <ul>
+        <li v-for="user in users" :key="user.id">{{ user.name }}</li>
+      </ul>
+
+      <div style="border: 1px solid black">
+        <div>Carousel 1{{carouselValue1}}</div>
+        <div>Carousel 1 {{carouselValue2}}</div>
+
+        <!-- CAROUSEL -->
+        <div style="border: 1px solid red">
+          <carousel
+            v-bind:photos="cats"
+            @value-selected="handleValueCallBack('first', $event)"
+          ></carousel>
+        </div>
+
+        <br />
+        <div style="border: 1px solid green">
+          <carousel
+            v-bind:photos="cats"
+            @value-selected="handleValueCallBack('second', $event)"
+          ></carousel>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script type="module" src="/components//carousel.js"></script>
+    <script type="module" src="/components//loading.js"></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

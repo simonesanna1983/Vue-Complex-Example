@@ -1,0 +1,7 @@
+.todos-transition-enter-active,
+.todos-transition-leave-active {
+  transition: opacity 0.5s;
+}
+.todos-transition-enter, .todos-transition-leave-to /* .todos-transition-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
